@@ -1,0 +1,29 @@
+services:
+
+    _defaults:
+        autowire: TRUE
+        autoconfigure: TRUE
+
+    Nyholm\Psr7\Factory\Psr17Factory:
+
+    Symfony\Bridge\PsrHttpMessage\HttpMessageFactoryInterface:
+        class: Symfony\Bridge\PsrHttpMessage\Factory\PsrHttpFactory
+        arguments:
+            $serverRequestFactory: '@Nyholm\Psr7\Factory\Psr17Factory'
+            $streamFactory: '@Nyholm\Psr7\Factory\Psr17Factory'
+            $uploadedFileFactory: '@Nyholm\Psr7\Factory\Psr17Factory'
+            $responseFactory: '@Nyholm\Psr7\Factory\Psr17Factory'
+
+    Symfony\Bridge\PsrHttpMessage\HttpFoundationFactoryInterface:
+        class: Symfony\Bridge\PsrHttpMessage\Factory\HttpFoundationFactory
+
+    Pierotto\MiddlewareBundle\Infrastructure\Container\ContainerMiddlewareFactory:
+    Pierotto\MiddlewareBundle\Infrastructure\Attribute\MiddlewareReader:
+    Pierotto\MiddlewareBundle\Infrastructure\Http\Middleware\MiddlewareControllerFactory:
+    Pierotto\MiddlewareBundle\Infrastructure\Http\Request\RequestHandlerFactory:
+    Pierotto\MiddlewareBundle\Infrastructure\Http\Request\RequestFactory:
+    Pierotto\MiddlewareBundle\Infrastructure\Http\Response\ResponseFactory:
+
+    Pierotto\MiddlewareBundle\Domain\Event\Listener\ControllerListener:
+        tags:
+            - { name: kernel.event_listener, event: kernel.controller_arguments, method: onControllerArguments }
