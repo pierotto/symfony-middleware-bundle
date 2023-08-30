@@ -26,7 +26,7 @@ final class MiddlewareControllerFactory
 	{
 		return new \Pierotto\MiddlewareBundle\Infrastructure\Http\Middleware\MiddlewareController(
 			new \Pierotto\MiddlewareBundle\Infrastructure\Http\Middleware\MiddlewareDispatcher(
-				$middlewares,
+				\array_reverse($middlewares),
 				$this->requestHandlerFactory->create(
 					$controller,
 					$arguments,
